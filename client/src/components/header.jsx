@@ -1,10 +1,10 @@
+import { Link } from "react-router-dom";
 
-
-function Header() {
+function Header({ className = "" }) {
     return (
         <header>
-            <h1 className="text-white text-xl font-bold bg-blue-500 p-4">
-                Marketplace</h1>
+            <Link to="/"><h1 className={`text-logo text-3xl sm:text-4xl font-extrabold ${className} `}>
+                Marketplace</h1></Link>
         </header>
     )
 }

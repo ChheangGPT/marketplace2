@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import './App.css'
-import Header from './components/Header.jsx'
-import Hamburger from './components/hamburger.jsx'
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import { Link } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
+import Header from './components/Header.jsx';
+import Hamburger from './components/hamburger.jsx';
 import Home from './views/home.jsx';
+import Profile from './views/Profile.jsx';
+import Message from './views/Message.jsx';
+import Add from './views/Add.jsx';
+import Products from './views/Products.jsx';
+import About from './views/About.jsx';
+import Contact from './views/Contact.jsx';
+import Help from './views/Help.jsx';
+import Settings from './views/Settings.jsx';
+import Log_out from './views/Log_out.jsx';
 
 function App() {
-  const [activePage, setActivePage] = useState('home');
   return (
     <>
-      <div className='grid grid-rows-[auto_1fr] h-screen'>
-        <Header />
-        <div className='flex flex-1 relative'>
-          <aside className='relative '>
-            <Hamburger onSelect={setActivePage}/>
-          </aside>
-          <main className='relative w-full h-full m-4 justify-center flex'>
-            {activePage === 'home' && (
-              <div> 
-                <h1>Welcome to the Marketplace web</h1>
-                <Home />
-              </div>
-            )}
-            {activePage === "profile" && <h1>👤 Profile</h1>}
-            {activePage === "messages" && <h1>💬 Messages</h1>}
-            {activePage === "add" && <h1>➕ Add Product</h1>}
-            {activePage === "products" && <h1>📦 My Products</h1>}
-            {activePage === "about" && <h1>ℹ️ About</h1>}
-            {activePage === "contact" && <h1>📞 Contact</h1>}
-            {activePage === "help" && <h1>❓ Help</h1>}
-            {activePage === "settings" && <h1>⚙️ Settings</h1>}
-            {activePage === "logout" && <h1>🚪 Logging out…</h1>}
+      <div className='flex justify-between fixed w-screen bg-s_bg items-center p-4'>
+        <div className='flex items-center gap-2.5'>
+          <Hamburger />
+          <Header />
+        </div>
+        <div className=' mr-0 sm:mr-5'>
+          <Link to="/profile" className='flex rounded-full bg-bg size-12 backdrop-blur-3xl text-text text-2xl justify-center items-center'><FaUser /></Link>
+        </div>
+      </div>
+      <div className='h-screen pt-20'>
+
+
+        <div className='flex flex-1'>
+          <main className='w-full h-full m-4 justify-center flex'>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/messages' element={<Message />} />
+              <Route path='/add' element={<Add />} />
+              <Route path='/products' element={<Products />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/contact' element={<Contact />} />
+              <Route path='/help' element={<Help />} />
+              <Route path='/settings' element={<Settings />} />
+              <Route path='/logout' element={<Log_out />} />
+            </Routes>
+
           </main>
         </div>
       </div>

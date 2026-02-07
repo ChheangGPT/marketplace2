@@ -1,5 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-
+@theme {
+    --color-text: #213A58;
+    --color-bg: #15919B;
+    --color-s_bg: #0C6478;
+    --color-logo: #09D1C7;
+}
