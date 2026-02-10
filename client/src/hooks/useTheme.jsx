@@ -3,9 +3,9 @@ import { useEffect } from "react";
 const themes = {
   light: { bg: "#ffffff", text: "#222222" },
   dark: { bg: "#121212", text: "#ffffff" },
-  matcha: { bg: "#d4edda", text: "#155724" },
-  strawberry: { bg: "#f8d7da", text: "#721c24" },
-  "blue-sky": { bg: "#cce7ff", text: "#004085" },
+  // matcha: { bg: "#d4edda", text: "#155724" },
+  // strawberry: { bg: "#f8d7da", text: "#721c24" },
+  // "blue-sky": { bg: "#cce7ff", text: "#004085" },
 };
 
 export function useTheme(themeName) {
