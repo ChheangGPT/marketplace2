@@ -1,3 +1,5 @@
+import SignUp from "../pages/SignUp";
+
 export default function Log_out(){
     return(
         <>

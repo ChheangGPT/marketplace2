@@ -21,8 +21,6 @@ import SignUp from './pages/SignUp.jsx';
 function Layout() {
   return (
     <>
-
-
       <div className='flex justify-between fixed w-screen bg-s_bg items-center p-4'>
         <div className='flex items-center gap-2.5'>
           <Hamburger />
@@ -55,10 +53,10 @@ function Layout() {
           </div>
         </div>
       </>
-      );
+  );
 }
 
-      function App() {
+function App() {
   return (
       <>
         {/* <Routes>
@@ -69,4 +67,4 @@ function Layout() {
       </>
       );
 }
-      export default App;
+export default App;
