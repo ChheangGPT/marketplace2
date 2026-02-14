@@ -33,7 +33,6 @@ function Layout() {
       </div>
       <div className='h-screen pt-20'>
 
-
         <div className='flex flex-1'>
           <main className='w-full h-full m-4 justify-center flex'>
             <Routes>
@@ -48,7 +47,6 @@ function Layout() {
               <Route path='/settings' element={<Settings />} />
               <Route path='/logout' element={<Log_out />} />
             </Routes>
-
             </main>
           </div>
         </div>
@@ -59,10 +57,10 @@ function Layout() {
 function App() {
   return (
       <>
-        {/* <Routes>
+        <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/sign_up' element={<SignUp />} />
-      </Routes> */}
+      </Routes>
         <Layout />
       </>
       );

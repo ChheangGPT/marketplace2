@@ -3,6 +3,8 @@ import { useState } from "react";
 import { FaTimesCircle } from "react-icons/fa";
 import bg from "../assets/bg_image.jpg";
 import { motion } from "framer-motion";
+
+
 export default function SignUp() {
 
     // 🧠 React memory: this is where ALL input data lives
@@ -30,11 +32,13 @@ export default function SignUp() {
     }
 
     // 🚀 Runs when user clicks "Sign Up"
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault(); // stop page refresh
+        console.log('Submitting form with data:', form);
 
         // 🛑 simple frontend checks (UX, not security)
-        if (!form.firstName || !form.email || !form.password) {
+        if (!form.firstName || !form.lastName || !form.email 
+            || !form.password || !form.birth || !form.gender) {
             const i = document.getElementById("warning");
             i.classList.remove("hidden");
             setTimeout(() => {
@@ -59,13 +63,21 @@ export default function SignUp() {
             return;
         }
 
-        // If all good → send to backend
-        console.log("Sending to backend:", form);
+        const response = await fetch('http://localhost:5000/sign_up', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ firstName: form.firstName, lastName: form.lastName, email: form.email, password: form.password }),
+        })
+        const data = await response.json();
+        console.log(data);
+        alert('Okay');
     }
 
     return (
         <>
-            <div className="overflow-hidden relative flex w-full min-h-screen items-center justify-center bg-black/5 backdrop-blur-2xl bg-cover bg-center" style={{ backgroundImage: `url(${bg})` }}>
+            <div className=" overflow-hidden relative flex w-full min-h-screen items-center justify-center bg-black/5 backdrop-blur-2xl bg-cover bg-center" style={{ backgroundImage: `url(${bg})` }}>
 
                 {/* for dark and blur bg */}
                 <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/10 to-black/60 backdrop-blur-xs"></div>
@@ -127,7 +139,7 @@ export default function SignUp() {
                                     <option value="">Select</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
-                                    <option value="non-binary">Non-binary</option>
+                                    <option value="non-binary">Alien</option>
                                 </select>
                             </div>
 
@@ -203,7 +215,7 @@ export default function SignUp() {
                     </div>
 
                     <Link to="/login" className="text-gray-200 mt-5 text-lg hover:underline hover:text-gray-400">
-                        already has accounts? Login
+                        already have accounts? Login
                     </Link>
 
                     <div className="mt-5 w-2/5">
