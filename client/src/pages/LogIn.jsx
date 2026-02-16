@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 export default function Login() {
-
-    const [form, setForm] = useState({
+    const initialForm = {
         email: '',
         password: '',
-    });
+    };
+    const [form, setForm] = useState(initialForm);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -28,6 +28,7 @@ export default function Login() {
         if(response.ok) {
             alert(data.message);
             window.location.href = '/';
+            setForm(initialForm);
         } else {
             alert(data.error);
             return;

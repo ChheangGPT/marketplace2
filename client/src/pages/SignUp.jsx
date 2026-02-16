@@ -9,7 +9,7 @@ export default function SignUp() {
 
     // 🧠 React memory: this is where ALL input data lives
     // If it's not here, backend will never see it
-    const [form, setForm] = useState({
+    const initialForm = {
         firstName: "",
         lastName: "",
         gender: "",
@@ -18,8 +18,9 @@ export default function SignUp() {
         password: "",
         confirmPassword: "",
         agree: false,
-    });
 
+    };
+    const [form, setForm] = useState(initialForm);
     // 📨 Runs whenever user types / selects / checks
     function handleChange(e) {
         const { name, value, type, checked } = e.target;
@@ -59,20 +60,29 @@ export default function SignUp() {
         }
 
         if (!form.agree) {
-            alert("You must agree to the terms");
+            alert("You must agree to the terms and privacy policy");
             return;
         }
-
-        const response = await fetch('http://localhost:5000/sign_up', {
+        try {
+            const response = await fetch('http://localhost:5000/sign_up', {
             method: 'POST',
+            credentials: 'include', // important for cookies
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ firstName: form.firstName, lastName: form.lastName, email: form.email, password: form.password }),
-        })
-        const data = await response.json();
-        console.log(data);
-        alert('Okay');
+            body: JSON.stringify({ firstName: form.firstName, lastName: form.lastName, gender: form.gender, birth: form.birth, email: form.email, password: form.password}),
+            });
+            const data = await response.json();
+            console.log(data);
+            alert('Welcome, ' + data.user.firstName);
+            window.location.href = '/';
+            setForm(initialForm);
+        }
+        catch(err) {
+            console.error('Server error:', err);
+            alert('Server error. Please try again later.');
+            return;
+        }
     }
 
     return (
@@ -139,7 +149,8 @@ export default function SignUp() {
                                     <option value="">Select</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
-                                    <option value="non-binary">Alien</option>
+                                    <option value="alien">Alien</option>
+                                    <option value="stright">Normal</option>
                                 </select>
                             </div>
 

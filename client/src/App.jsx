@@ -16,9 +16,11 @@ import Settings from './views/Settings.jsx';
 import Log_out from './views/Log_out.jsx';
 import Login from './pages/LogIn.jsx';
 import SignUp from './pages/SignUp.jsx';
+import { useEffect, useState } from 'react';
 
 
-function Layout() {
+function Layout({ currentUser }) {
+
   return (
     <>
       <div className='flex justify-between fixed w-screen bg-s_bg items-center p-4'>
@@ -27,7 +29,7 @@ function Layout() {
           <Header />
         </div>
         <div className=' mr-0 sm:mr-5 flex items-center gap-4'>
-          <h1 className='text-2xl text-white/85 font-bold'>Welcome, User </h1>
+          <h1 id='user' className='text-2xl text-white/85 font-bold'>Welcome, {currentUser || 'Bong Bros'} </h1>
           <Link to="/login" className='flex rounded-full bg-bg size-12 backdrop-blur-3xl text-text text-2xl justify-center items-center'><FaUser /></Link>
         </div>
       </div>
@@ -55,13 +57,23 @@ function Layout() {
 }
 
 function App() {
+  const [ currentUser, setCurrentUser ] = useState(null);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/current_user', {credentials: 'include'})
+      .then(res => res.json())
+      .then(data => setCurrentUser(data.user))
+      .catch(err => console.error(err));
+  }, []);
   return (
       <>
         <Routes>
+          {/* Public routes */}
         <Route path='/login' element={<Login />} />
         <Route path='/sign_up' element={<SignUp />} />
+          {/* Protected routes */}
+        <Route path="/*" element={<Layout currentUser={currentUser} />} />
       </Routes>
-        <Layout />
       </>
       );
 }
