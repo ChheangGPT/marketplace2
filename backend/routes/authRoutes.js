@@ -15,7 +15,7 @@ router.post('/sign_up', async (req, res) => {
         db.query(sql, [firstName, lastName, gender, birth, email, hashedPassword], (err, result) => {
             if (err) return res.status(500).json({ error: err.message });
 
-            req.session.user = { id: result.insertId, firstName, email };
+            req.session.user = { id: result.insertId, firstName, lastName, email };
             res.json({ message: "User registered successfully!", user: req.session.user });
         });
 
@@ -43,7 +43,7 @@ router.post('/login', (req, res) => {
             return res.status(400).json({ error: "Incorrect password" });
         }
 
-        req.session.user = { id: user.id, firstName: user.first_name, email: user.email };
+        req.session.user = { id: user.id, firstName: user.first_name, lastName: user.last_name, email: user.email };
         res.json({ message: "Login successful", user: req.session.user });
     });
 });
@@ -56,11 +56,21 @@ router.post('/logout', (req, res) => {
     });
 });
 
-// CURRENT USER
+// CURRENT USER (First Name) IN HEADER
 router.get('/current_user', (req, res) => {
     console.log("Session:", req.session);
     if(req.session.user) {
         res.json({ user: req.session.user.firstName });
+    } else {
+        res.json({ user: null });
+    }
+});
+
+// CURRENT USER (Full Name) IN PROFILE
+router.get('/current_user2', (req, res) => {
+    console.log("Session:", req.session);
+    if(req.session.user) {
+        res.json({ user: req.session.user.firstName + " " + req.session.user.lastName });
     } else {
         res.json({ user: null });
     }

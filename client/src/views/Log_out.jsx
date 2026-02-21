@@ -1,9 +1,10 @@
-import SignUp from "../pages/SignUp";
+import { Link } from "react-router-dom";
+
 
 export default function Log_out(){
     return(
         <>
-        <h1>log out</h1>
+        <Link to='/Login'>Click me to login</Link>
         </>
     );
 }

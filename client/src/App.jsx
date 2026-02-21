@@ -20,6 +20,9 @@ import { useEffect, useState } from 'react';
 
 
 function Layout({ currentUser }) {
+  if(currentUser && currentUser.length > 8){
+    currentUser = <span className="text-lg">{currentUser}</span>;
+  }
 
   return (
     <>
@@ -29,8 +32,8 @@ function Layout({ currentUser }) {
           <Header />
         </div>
         <div className=' mr-0 sm:mr-5 flex items-center gap-4'>
-          <h1 id='user' className='text-2xl text-white/85 font-bold'>Welcome, {currentUser || 'Bong Bros'} </h1>
-          <Link to="/login" className='flex rounded-full bg-bg size-12 backdrop-blur-3xl text-text text-2xl justify-center items-center'><FaUser /></Link>
+          <h1 className='text-2xl text-white/85 font-bold'>Welcome, {currentUser || 'Guest'} </h1>
+          <Link to="/profile" className='flex rounded-full bg-bg size-12 backdrop-blur-3xl text-text text-2xl justify-center items-center'><FaUser /></Link>
         </div>
       </div>
       <div className='h-screen pt-20'>
@@ -52,6 +55,10 @@ function Layout({ currentUser }) {
             </main>
           </div>
         </div>
+
+
+
+        
       </>
   );
 }
