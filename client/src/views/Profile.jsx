@@ -20,6 +20,7 @@ function Profile() {
         })
         .catch(err => console.error('Error fetching current user:', err));
     }, []);
+    
 
     useEffect(() => {
         fetch('http://localhost:5000/profile', {credentials: 'include'})
