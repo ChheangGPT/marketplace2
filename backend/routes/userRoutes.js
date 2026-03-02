@@ -84,4 +84,23 @@ router.get('/profile', (req, res) => {
     });
 });
 
+router.get('/navprofile', (req, res) => {
+    if(!req.session.user){
+        return res.status(401).json({ message: 'Unauthorized '});
+    }
+
+    const userId = req.session.user.id;
+    const sql = `
+        SELECT avatar FROM user_profiles 
+            WHERE user_id = ? LIMIT 1
+    `;
+
+    db.query(sql, [userId], (err, result) => {
+        if(result.length === 0) {
+            return res.json({ avatar: null });
+        }
+        res.json(result[0]);
+    })
+})
+
 module.exports = router;

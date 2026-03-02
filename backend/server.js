@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/products');
 
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(session({
 
 app.use("/", authRoutes);
 app.use("/", userRoutes);
+app.use('/', productRoutes);
 app.use('/uploads', express.static('uploads'));
 
 const PORT = process.env.PORT || 5000;

@@ -7,7 +7,6 @@ import Hamburger from './components/hamburger.jsx';
 import Home from './views/home.jsx';
 import Profile from './views/Profile.jsx';
 import Message from './views/Message.jsx';
-import Add from './views/Add.jsx';
 import Products from './views/Products.jsx';
 import About from './views/About.jsx';
 import Contact from './views/Contact.jsx';
@@ -20,9 +19,24 @@ import { useEffect, useState } from 'react';
 
 
 function Layout({ currentUser }) {
+
   if(currentUser && currentUser.length > 8){
     currentUser = <span className="text-lg">{currentUser}</span>;
   }
+  const [ profileData, setProfileData ] = useState(null);
+
+  // PROFILE ON NAVBAR
+  useEffect(() => {
+    fetch('http://localhost:5000/navprofile', { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => {
+        if(data && data.avatar){
+          setProfileData(`http://localhost:5000/${data.avatar}`);
+        }
+      })
+      .catch(err => console.error('Nav profile: ', err));
+  }, []);
+  
 
   return (
     <>
@@ -33,7 +47,18 @@ function Layout({ currentUser }) {
         </div>
         <div className=' mr-0 sm:mr-5 flex items-center gap-4'>
           <h1 className='text-2xl text-white/85 font-bold'>Welcome, {currentUser || 'Guest'} </h1>
-          <Link to="/profile" className='flex rounded-full bg-bg size-12 backdrop-blur-3xl text-text text-2xl justify-center items-center'><FaUser /></Link>
+          <Link to="/profile" 
+                className='flex rounded-full bg-bg size-12 backdrop-blur-3xl text-text text-2xl justify-center items-center'
+          >
+            {profileData ? (
+              <img src={profileData}
+                   alt="Profile"
+                   className='w-full h-full object-cover rounded-full'
+              />
+            ) : (
+             <FaUser />
+            )}
+          </Link>
         </div>
       </div>
       <div className='h-screen pt-20'>
@@ -44,7 +69,6 @@ function Layout({ currentUser }) {
               <Route path='/' element={<Home />} />
               <Route path='/profile' element={<Profile />} />
               <Route path='/messages' element={<Message />} />
-              <Route path='/add' element={<Add />} />
               <Route path='/products' element={<Products />} />
               <Route path='/about' element={<About />} />
               <Route path='/contact' element={<Contact />} />

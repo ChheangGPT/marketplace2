@@ -41,7 +41,7 @@ function Hamburger() {
     { path: "/", label: "Home", icon: <FaHome /> },
     { path: "/profile", label: "Profile", icon: <FaUser /> },
     { path: "/messages", label: "Messages", icon: <FaEnvelope /> },
-    { path: "/add", label: "Add", icon: <FaPlus /> },
+    // { path: "/add", label: "Add", icon: <FaPlus /> },
     { path: "/products", label: "My products", icon: <FaBox /> },
     { path: "/about", label: "About", icon: <FaInfoCircle /> },
     { path: "/contact", label: "Contact", icon: <FaPhone /> },
